@@ -9,13 +9,8 @@ const app = express();
 const connect = process.env.PORT || "3001";
 const portUrl = process.env.DATABASE_URL_PORT;
 
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Idempotency-Key'],
-}));
-
 app.use(express.json());
+app.use(cors());
 
 const token = process.env.TOKEN_ACCESS
 //const integrator = process.env.SECRET_INTEGRATOR
