@@ -58,7 +58,7 @@ app.post("/create_preference", async function (req, res) {
         pending: "https://tuaneeduan.com.br/ecommerce",
       },
       auto_return: "approved",
-      notification_url: `${portUrl}/order/webhook`,
+      notification_url: `${connect}/order/webhook`,
       payment_methods: {
         installments: 12
       },
