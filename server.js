@@ -28,7 +28,7 @@ app.get("/order", function (_, res) {
   res.send("Servidor está funcionando");
 });
 
-app.post("/order/create_preference", async function (req, res) {
+app.post("/create_preference", async function (req, res) {
   try {
     const externalReference = req.body.external_reference;
     const idempotencyKey = req.headers["X-Idempotency-Key"];
