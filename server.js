@@ -24,7 +24,7 @@ const mercadoPagoClient = new MercadoPagoConfig({
   //integrator_id: integrator
 })
 
-app.get("/", function (_, res) {
+app.get("/order", function (_, res) {
   res.send("Servidor está funcionando");
 });
 
@@ -58,7 +58,7 @@ app.post("/create_preference", async function (req, res) {
         pending: "https://tuaneeduan.com.br/ecommerce",
       },
       auto_return: "approved",
-      notification_url: `${connect}/webhook`,
+      notification_url: `${portUrl}/webhook`,
       payment_methods: {
         installments: 12
       },
