@@ -24,7 +24,7 @@ const mercadoPagoClient = new MercadoPagoConfig({
   //integrator_id: integrator
 })
 
-app.get("/", function (_, res) {
+app.get("/order", function (_, res) {
   res.send("Servidor está funcionando");
 });
 
