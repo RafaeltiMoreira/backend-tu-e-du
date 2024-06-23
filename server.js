@@ -7,16 +7,16 @@ dotenv.config();
 
 const app = express();
 const connect = process.env.PORT || "3001";
+const portUrl = process.env.DATABASE_URL_PORT;
 
 app.use(cors({
-  origin: '*', // Permite apenas requisições desta origem
-  methods: ['GET', 'POST'], // Permite apenas esses métodos
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Idempotency-Key'], // Permite apenas esses cabeçalhos
+  origin: '*',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Idempotency-Key'],
 }));
 
 app.use(express.json());
 
-// https://developers.mercadopago.com/panel
 const token = process.env.TOKEN_ACCESS
 //const integrator = process.env.SECRET_INTEGRATOR
 const mercadoPagoClient = new MercadoPagoConfig({
@@ -58,7 +58,7 @@ app.post("/order/create_preference", async function (req, res) {
         pending: "https://tuaneeduan.com.br/ecommerce",
       },
       auto_return: "approved",
-      notification_url: "https://tuaneeduan.com.br/ecommerce/webhook",
+      notification_url: `${portUrl}/order/webhook`,
       payment_methods: {
         installments: 12
       },
