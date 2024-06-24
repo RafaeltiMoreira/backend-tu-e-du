@@ -7,7 +7,7 @@ dotenv.config();
 
 const app = express();
 const connect = process.env.PORT || "3001";
-const portUrl = process.env.DATABASE_URL_PORT;
+const port = process.env.DATABASE_URL_PORT;
 
 app.use(express.json());
 app.use(cors());
@@ -19,7 +19,7 @@ const mercadoPagoClient = new MercadoPagoConfig({
   //integrator_id: integrator
 })
 
-app.get("/order", function (_, res) {
+app.get("/", function (_, res) {
   res.send("Servidor está funcionando");
 });
 
@@ -53,7 +53,7 @@ app.post("/order/create_preference", async function (req, res) {
         pending: "https://tuaneeduan.com.br/ecommerce",
       },
       auto_return: "approved",
-      notification_url: `${portUrl}/order/webhook`,
+      notification_url: `${port}/order/webhook`,
       payment_methods: {
         installments: 12
       },
