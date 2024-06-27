@@ -6,8 +6,8 @@ import { MercadoPagoConfig, Preference } from "mercadopago";
 dotenv.config();
 
 const app = express();
-const connect = process.env.PORT || "3001";
-const port = process.env.DATABASE_URL_PORT;
+const port = process.env.PORT || "3001";
+const urlState = process.env.URL_CONNECT;
 
 app.use(express.json());
 app.use(cors());
@@ -25,8 +25,8 @@ app.get("/", function (_, res) {
 
 app.post("/order/create_preference", async function (req, res) {
   try {
-    const externalReference = req.body.external_reference;
-    const idempotencyKey = req.headers["X-Idempotency-Key"];
+    /*const externalReference = req.body.external_reference;
+    const idempotencyKey = req.headers["X-Idempotency-Key"];*/
     console.log("Received request body:", req.body);
 
     if (!req.body.items || req.body.items.length === 0) {
@@ -43,29 +43,28 @@ app.post("/order/create_preference", async function (req, res) {
       unit_price: Number(item.unit_price),
       currency_id: "BRL",
     }));
-
     const body = {
-      external_reference: externalReference,
-      items,
+
+      //external_reference: externalReference,
+      items: items,
       back_urls: {
         success: "https://tuaneeduan.com.br/ecommerce",
         failure: "https://tuaneeduan.com.br/ecommerce",
         pending: "https://tuaneeduan.com.br/ecommerce",
       },
       auto_return: "approved",
-      notification_url: `${port}/order/webhook`,
+      notification_url: `${urlState}/webhook`,
       payment_methods: {
         installments: 12
       },
     };
 
-    console.log("Formatted body:", body);
-
     const preference = new Preference(mercadoPagoClient);
-    const result = await preference.create({ body, idempotencyKey });
+    const result = await preference.create({ body });
+    /*, idempotencyKey*/
 
     res.json({
-      id: result.body.id,
+      id: result.id,
     });
 
   } catch (error) {
@@ -78,6 +77,10 @@ app.post("/order/create_preference", async function (req, res) {
 });
 
 app.post("/webhook", async function (req, res) {
+  console.log("Quiero mucho!")
+})
+
+/*app.post("/webhook", async function (req, res) {
   const paymentId = req.query.id;
   try {
     const response = await fetch(`https://api.mercadopago.com/v1payments/${paymentId}`, {
@@ -96,9 +99,9 @@ app.post("/webhook", async function (req, res) {
     console.error("Error", error);
     res.sendStatus(500);
   }
-})
+})*/
 
-app.listen(connect, () => {
-  console.log(`Servidor executando na porta ${connect}`)
+app.listen(port, () => {
+  console.log(`Servidor executando na porta ${port}`)
 })
 
