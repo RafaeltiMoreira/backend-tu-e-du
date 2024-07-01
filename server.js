@@ -42,7 +42,7 @@ async function main() {
     res.send("Servidor está funcionando");
   });
 
-  app.post("/order/create_preference", async function (req, res) {
+  app.post("/create_preference", async function (req, res) {
     console.log("Requisição recebida em /order/create_preference");
     try {
       const externalReference = req.body.external_reference;
