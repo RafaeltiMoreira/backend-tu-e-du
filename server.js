@@ -38,11 +38,11 @@ async function main() {
     integrator_id: integrator
   })
 
-  app.get("/order", function (_, res) {
+  app.get("/order/create_preference", function (_, res) {
     res.send("Servidor está funcionando");
   });
 
-  app.post("/create_preference", async function (req, res) {
+  app.post("/order/create_preference", async function (req, res) {
     console.log("Requisição recebida em /order/create_preference");
     try {
       const externalReference = req.body.external_reference;
