@@ -24,7 +24,7 @@ async function main() {
   const db = client.db(dbName)
   const collection = db.collection('orders')
 
-  const port = process.env.PORT || "3002";
+  const port = process.env.PORT || process.env.URL_PORT;
   const urlState = process.env.URL_CONNECT;
   const app = express();
 
