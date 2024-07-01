@@ -47,7 +47,7 @@ async function main() {
     try {
       const externalReference = req.body.external_reference;
       const idempotencyKey = req.headers["X-Idempotency-Key"];
-      const { items, first_name, last_name } = req.body;
+      const { items, payer } = req.body;
       console.log("Received request body:", req.body);
 
       if (!items || items.length === 0) {
@@ -76,8 +76,8 @@ async function main() {
         external_reference: externalReference,
         items: dataItems,
         payer: {
-          first_name: first_name,
-          last_name: last_name
+          first_name: payer.first_name,
+          last_name: payer.last_name
         },
         back_urls: {
           success: "https://tuaneeduan.com.br/ecommerce",
@@ -99,8 +99,8 @@ async function main() {
         external_reference: externalReference,
         items: dataItems,
         payer: {
-          first_name: req.body.firstName,
-          last_name: req.body.lastName,
+          first_name: payer.first_name,
+          last_name: payer.last_name,
         },
         preference_id: result.id,
         created_at: new Date()
@@ -126,8 +126,8 @@ async function main() {
       const response = await fetch(`https://api.mercadopago.com/v1payments/${paymentId}`, {
         method: 'GET',
         headers: {
-          "Authorization": `Bearer ${mercadoPagoClient.token}`,
-          "x-integrator-id": `Bearer ${mercadoPagoClient.integrator}`,
+          "Authorization": `Bearer ${mercadoPagoClient.accessToken}`,
+          "x-integrator-id": `Bearer ${mercadoPagoClient.integrator_id}`,
         }
       });
 
