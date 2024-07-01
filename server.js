@@ -38,7 +38,7 @@ async function main() {
     integrator_id: integrator
   })
 
-  app.get("/order", function (_, res) {
+  app.get("/", function (_, res) {
     res.send("Servidor está funcionando");
   });
 
