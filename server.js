@@ -43,7 +43,7 @@ async function main() {
   });
 
   app.post("/order/create_preference", async function (req, res) {
-
+    console.log("Requisição recebida em /order/create_preference");
     try {
       const externalReference = req.body.external_reference;
       const idempotencyKey = req.headers["X-Idempotency-Key"];
