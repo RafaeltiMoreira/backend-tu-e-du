@@ -80,9 +80,9 @@ async function main() {
           last_name: payer.last_name
         },
         back_urls: {
-          success: "https://tuaneeduan.com.br/ecommerce",
-          failure: "https://tuaneeduan.com.br/ecommerce",
-          pending: "https://tuaneeduan.com.br/ecommerce",
+          success: "https://tuaneeduan.com.br",
+          failure: "https://tuaneeduan.com.br",
+          pending: "https://tuaneeduan.com.br",
         },
         auto_return: "approved",
         notification_url: `${urlState}/webhook`,
